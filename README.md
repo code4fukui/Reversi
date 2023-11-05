@@ -28,3 +28,16 @@ console.log(rb.getScore(), rb.getWinner());
 ```sh
 deno test
 ```
+
+## benchmark
+
+game by random 1 million times
+```sh
+time deno run ReversiBoard.check.js
+```
+
+```
+[ 41592, 454162, 504246 ]
+deno run ReversiBoard.check.js  110.09s user 0.22s system 98% cpu 1:51.69 total
+```
+(result on M1 MacBook Pro)
