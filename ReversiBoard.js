@@ -10,9 +10,18 @@ const dirs = [
 ];
 
 export class ReversiBoard {
-  constructor() {
+  constructor(rb) {
     this.fld = new Array(8);
     this.reset();
+    if (rb) {
+      const fld = this.fld;
+      for (let i = 0; i < 8; i++) {
+        const row = fld[i];
+        for (let j = 0; j < 8; j++) {
+          row[j] = rb.fld[i][j];
+        }
+      }
+    }
   }
   reset() {
     const fld = this.fld;

@@ -55,3 +55,9 @@ Deno.test("get", () => {
   t.assertEquals(rb.get(-1, 4), 0);
   t.assertEquals(rb.get(0, 0), 0);
 });
+Deno.test("clone", () => {
+  const rb = new ReversiBoard();
+  rb.put(1, 3, 2);
+  const rb2 = new ReversiBoard(rb);
+  t.assertEquals(rb.toString(), rb2.toString());
+});
