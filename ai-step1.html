@@ -7,39 +7,13 @@
 <main id=main></main>
 <div id=divscore></div>
 <hr>
+<a href=./>Humans</a>, <a href=./ai-step1.html>AI step1</a><br>
 <a href=https://github.com/code4fukui/Reversi/>src on GitHub</a>
 
 <script type="module">
 import { ReversiBoard } from "./ReversiBoard.js";
 import { players, show, waitClick } from "./ui.js";
-
-// https://note.com/nyanyan_cubetech/n/n17c169271832?magazine_key=m54104c8d2f12
-const valtbl = [
-  [ 30, -12,  0, -1],
-  [-12, -15, -3, -3],
-  [  0,  -3,  0, -1],
-  [ -1,  -3, -1, -1],
-];
-const getValue = (x, y) => {
-  if (x > 3) x = 7 - x;
-  if (y > 3) y = 7 - y;
-  return valtbl[y][x];
-};
-const calcValue = (rb, n) => {
-  let v = 0;
-  const m = 3 - n;
-  for (let y = 0; y < 8; y++) {
-    for (let x = 0; x < 8; x++) {
-      const a = rb.get(x, y);
-      if (a == n) {
-        v += getValue(x, y);
-      } else {
-        v -= getValue(x, y);
-      }
-    }
-  }
-  return v;
-};
+import { waitHand } from "./ai1.js";
 
 const rb = new ReversiBoard();
 show(rb);
@@ -51,19 +25,8 @@ for (let i = 0; !rb.isOver(); i++) {
     alert(`${n == ai ? "I" : "You"} must pass!`);
   } else {
     if (n == ai) {
-      const hands = rb.getHands(n);
-      let max = -1000;
-      let maxhand = null;
-      for (const hand of hands) {
-        const rb2 = new ReversiBoard(rb);
-        rb2.put(n, hand.x, hand.y);
-        const v = calcValue(rb2, n);
-        if (v > max) {
-          max = v;
-          maxhand = hand;
-        }
-      }
-      rb.put(n, maxhand.x, maxhand.y);
+      const hand = await waitHand(rb, n);
+      rb.put(n, hand.x, hand.y);
     } else {
       for (;;) {
         const { x, y } = await waitClick();
