@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:">
+<title>Reversi</title>
+</head><body>
+
+<h1>Reversi</h1>
+<main id=main></main>
+<div id=divscore></div>
+<hr>
+<a href=https://github.com/code4fukui/Reversi/>src on GitHub</a>
+
+<script type="module">
+import { ReversiBoard } from "./ReversiBoard.js";
+
+for (let i = 0; i < 8; i++) {
+  for (let j = 0; j < 8; j++) {
+    const btn = document.createElement("button");
+    main.appendChild(btn);
+  }
+}
+const players = ["　", "⚫", "⚪"];
+const show = (rb) => {
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 8; j++) {
+      const n = i * 8 + j;
+      const btn = main.children[n];
+      btn.textContent = players[rb.get(j, i)];
+    }
+  }
+};
+
+const waitClick = async () => {
+  return new Promise(resolve => {
+    for (let y = 0; y < 8; y++) {
+      for (let x = 0; x < 8; x++) {
+        const n = y * 8 + x;
+        const btn = main.children[n];
+        btn.onclick = () => {
+          resolve({ x, y });
+        };
+      }
+    }
+  });
+}
+
+const rb = new ReversiBoard();
+show(rb);
+
+let n = 1;
+for (let i = 0; !rb.isOver(); i++) {
+  if (!rb.canPut(n)) {
+    alert("you must pass!");
+  } else {
+    for (;;) {
+      const { x, y } = await waitClick();
+      if (rb.put(n, x, y)) break;
+    }
+    show(rb);
+    divscore.textContent = rb.getScore().join(" vs ");
+  }
+  n = 3 - n;
+}
+const w = rb.getWinner();
+if (w == 0) {
+  alert("draw game");
+} else {
+  alert("player " + players[w] + " won!");
+}
+</script>
+
+<style>
+body {
+  text-align: center;
+}
+main {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+}
+</style>
+
+</body></html>
