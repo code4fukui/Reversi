@@ -1,0 +1,16 @@
+body {
+  text-align: center;
+  touch-action: manipulation;
+  font-family: sans-serif;
+}
+main {
+  display: inline-grid;
+  grid-template-columns: repeat(8, 1fr);
+}
+button {
+  font-size: 130%;
+  padding: 0.2em;
+  -webkit-appearance: none;
+  border: 1px outset gray;
+  line-height: 1.1;
+}
