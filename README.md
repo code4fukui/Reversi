@@ -1,6 +1,9 @@
 # Reversi
  
 - [demo](https://code4fukui.github.io/Reversi/)
+- [random AI](https://code4fukui.github.io/Reversi/ai-step0.html)
+- [eval table AI](https://code4fukui.github.io/Reversi/ai-step1.html)
+- [eval table with 2 steps AI](https://code4fukui.github.io/Reversi/ai-step2.html)
 
 ## usage
 
@@ -22,6 +25,12 @@ for (let i = 0; !rb.isOver(); i++) {
 }
 console.log(rb.getScore(), rb.getWinner());
 ```
+
+## AI
+
+- [AI step0](ai0.js) random
+- [AI step1](ai1.js) eval table
+- [AI step2](ai2.js) eval table with 2 steps
 
 ## test
 
