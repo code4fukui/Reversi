@@ -12,7 +12,7 @@ const getValue = (x, y) => {
   if (y > 3) y = 7 - y;
   return valtbl[y][x];
 };
-const calcValue = (rb, n) => {
+export const calcValue = (rb, n) => {
   let v = 0;
   const m = 3 - n;
   for (let y = 0; y < 8; y++) {
@@ -20,7 +20,7 @@ const calcValue = (rb, n) => {
       const a = rb.get(x, y);
       if (a == n) {
         v += getValue(x, y);
-      } else {
+      } else if (a == 3 - n) {
         v -= getValue(x, y);
       }
     }
