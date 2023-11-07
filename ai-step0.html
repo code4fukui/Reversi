@@ -14,6 +14,7 @@
 import { ReversiBoard } from "./ReversiBoard.js";
 import { players, show, waitClick } from "./ui.js";
 import { waitHand } from "./ai0.js";
+import { sleep } from "https://js.sabae.cc/sleep.js";
 
 const rb = new ReversiBoard();
 show(rb);
@@ -25,6 +26,7 @@ for (let i = 0; !rb.isOver(); i++) {
     alert(`${n == ai ? "I" : "You"} must pass!`);
   } else {
     if (n == ai) {
+      await sleep(500);
       const hand = await waitHand(rb, n);
       rb.put(n, hand.x, hand.y);
     } else {
