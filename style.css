@@ -14,3 +14,11 @@ button {
   border: 1px outset gray;
   line-height: 1.1;
 }
+#btnplay {
+  margin: .5em;
+}
+textarea {
+  width: 80%;
+  height: 6em;
+  margin: .5em;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:">
+<title>Reversi Player</title>
+<link rel="stylesheet" href="style.css">
+</head><body>
+
+<h1>Reversi Player</h1>
+<main id=main></main>
+<div id=divscore></div>
+<!--<button id=btnnext>next</button><br>-->
+<button id=btnplay>PLAY</button><br>
+<textarea id=tascore>f5d6c3d3c4f4f6f3e6e7f7c5b6g6e3e2f1d1g5c6d8g4h6d2h5e8f8c7c2a6c8b5d7b4a3a5b3b7e1b1a8a4a7b8f2h7g7h4g3g2h1g1a2b2a1h2h3g8c1h8</textarea>
+<hr>
+<a href=./>Humans</a>, <a href=./ai-step0.html>AI step0</a>, <a href=./ai-step1.html>AI step1</a>, <a href=./ai-step2.html>AI step2</a>, <a href=./player.html>Player</a><br>
+<a href=https://github.com/code4fukui/Reversi/>src on GitHub</a>
+
+<script type="module">
+import { ReversiBoard } from "./ReversiBoard.js";
+import { players, show, waitClick } from "./ui.js";
+import { sleep } from "https://js.sabae.cc/sleep.js";
+
+const waitNext = async () => {
+  return new Promise(resolve => {
+    btnnext.onclick = resolve;
+  });
+};
+
+const rb = new ReversiBoard();
+show(rb);
+
+btnplay.onclick = async () => {
+  btnplay.disabled = true;
+
+  rb.reset();
+  show(rb);
+
+  const score = tascore.value.trim();
+  let n = 1;
+  for (let i = 0; i < score.length;) {
+    if (rb.canPut(n)) {
+      const s = score.substring(i, i + 2).toUpperCase();
+      i += 2;
+      const x = s.charCodeAt(0) - "A".charCodeAt(0);
+      const y = s.charCodeAt(1) - "1".charCodeAt(0);
+      rb.put(n, x, y);
+      show(rb);
+      divscore.textContent = rb.getScore().join(" vs ");
+      //await waitNext();
+      await sleep(100);
+    }
+    n = 3 - n;
+  }
+  const w = rb.getWinner();
+  if (w == 0) {
+    alert("draw game");
+  } else {
+    alert("player " + players[w] + " won!");
+  }
+  btnplay.disabled = false;
+};
+
+</script>
+</body></html>
