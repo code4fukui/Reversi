@@ -61,3 +61,9 @@ Deno.test("clone", () => {
   const rb2 = new ReversiBoard(rb);
   t.assertEquals(rb.toString(), rb2.toString());
 });
+Deno.test("encodeXY/decodeXY", () => {
+  t.assertEquals(ReversiBoard.encodeXY(0, 0), "A1");
+  t.assertEquals(ReversiBoard.decodeXY("A1"), { x: 0, y: 0 });
+  t.assertEquals(ReversiBoard.encodeXY(5, 4), "F5");
+  t.assertEquals(ReversiBoard.decodeXY("F5"), { x: 5, y: 4 });
+});

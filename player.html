@@ -37,11 +37,10 @@ btnplay.onclick = async () => {
   let n = 1;
   for (let i = 0; i < score.length;) {
     if (rb.canPut(n)) {
-      const s = score.substring(i, i + 2).toUpperCase();
+      const s = score.substring(i, i + 2);
       i += 2;
-      const x = s.charCodeAt(0) - "A".charCodeAt(0);
-      const y = s.charCodeAt(1) - "1".charCodeAt(0);
-      rb.put(n, x, y);
+      const p = ReversiBoard.decodeXY(s);
+      rb.put(n, p.x, p.y);
       show(rb);
       divscore.textContent = rb.getScore().join(" vs ");
       //await waitNext();

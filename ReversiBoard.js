@@ -142,4 +142,12 @@ export class ReversiBoard {
     }
     return ss.join("\n");
   }
+  static encodeXY(x, y) {
+    return String.fromCharCode(x + "A".charCodeAt(0)) + String.fromCharCode(y + "1".charCodeAt(0));
+  }
+  static decodeXY(s) {
+    const x = s.toUpperCase().charCodeAt(0) - "A".charCodeAt(0);
+    const y = s.charCodeAt(1) - "1".charCodeAt(0);
+    return { x, y };
+  }
 }
